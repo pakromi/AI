@@ -27,6 +27,19 @@ stopwords = english_stopwords + special_characters
 # 예시: 불용어 목록을 출력
 print(stopwords)
 
+# 가사 전처리 함수 정의
+def preprocess_lyrics(song_lyrics):
+    # 가사 텍스트 정제 (예: 특수 문자, 숫자 제거)
+    song_lyrics = re.sub(r'[^가-힣\s]', '', song_lyrics)
+
+    # 형태소 분석 및 토큰화
+    tokens = okt.morphs(song_lyrics)
+
+    # 불용어 제거
+    filtered_tokens = [word for word in tokens if word not in stopwords]
+
+    return " ".join(filtered_tokens)
+    
 # 가사 파일이 저장된 디렉토리 경로
 lyrics_dir = r'C:\Users\Windows(C:)\Windows\21~40.전'
 
